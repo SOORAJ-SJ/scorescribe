@@ -11,21 +11,21 @@
         const loginURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${AUTH_CONFIG.clientId}&redirect_uri=${AUTH_CONFIG.redirectURI}&response_type=id_token token&scope=${AUTH_CONFIG.scope}&nonce=${nonce}`;
         window.open(loginURL, '_self');
     }
-
     const urlSearchParams = new URLSearchParams(window.location.hash.substring(1));
-    const accessToken = urlSearchParams.get('access_token');
-    const idToken = urlSearchParams.get('id_token');
-    const idTokenClaims = parseJWT(idToken || '');
-    if (!(idTokenClaims.nonce == decodeURIComponent(window.sessionStorage.getItem('nonce') || '')))
-        window.location.href = '/scorescribe';
-    if (!accessToken || !idToken)
-        window.location.href = '/scorescribe';
-    else {
-        sessionStorage.setItem('access_token', accessToken);
-        sessionStorage.setItem('id_token', idToken);
-        sessionStorage.setItem('user', JSON.stringify(idTokenClaims));
-        changeAuthState(true);
-        window.location.href = '/scorescribe/games'
+    try {
+        const accessToken = urlSearchParams.get('access_token');
+        const idToken = urlSearchParams.get('id_token');
+        const idTokenClaims = parseJWT(idToken || '');
+        const isIdTokenValid = idTokenClaims.nonce == (decodeURIComponent(window.sessionStorage.getItem('nonce') || ''));
+        if (accessToken && idToken && isIdTokenValid) {
+            sessionStorage.setItem('access_token', accessToken);
+            sessionStorage.setItem('id_token', idToken);
+            sessionStorage.setItem('user', JSON.stringify(idTokenClaims));
+            changeAuthState(true);
+            window.location.href = '/scorescribe/games'
+        }
+    } catch (error) {
+        console.log(error)
     }
   </script>
 
