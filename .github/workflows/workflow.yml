@@ -36,6 +36,7 @@ jobs:
         id: upload-artifact
         uses: actions/upload-artifact@v4
         with:
+          name: ${{ name }}
           path: 'build'
           if-no-files-found: error
 
