@@ -28,6 +28,9 @@ jobs:
 
       - name: Build project
         run: npm run build
+
+      - name: Check for symlinks
+        run: find ./build -type l
         
       - name: Upload artifact
         id: upload-artifact
