@@ -6,11 +6,11 @@
     import { goto } from "$app/navigation";
 	import { Toaster } from "svelte-french-toast";
 
-    $: if (browser && $page.url.pathname == '/' && $isAuthenticated)
-        goto('/games')
+    $: if (browser && $page.url.pathname == '/scorescribe' && $isAuthenticated)
+        goto('/scorescribe/games')
 
-    $: if (browser && $page.url.pathname != '/' && !$isAuthenticated)
-        goto('/')
+    $: if (browser && $page.url.pathname != '/scorescribe' && !$isAuthenticated)
+        goto('/scorescribe')
 
 </script>
 
