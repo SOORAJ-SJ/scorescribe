@@ -1,5 +1,4 @@
 name: "Deploy to github pages"
-description: "Build and deploy assets to github pages"
 on:
   push: 
     branches: ['main']
