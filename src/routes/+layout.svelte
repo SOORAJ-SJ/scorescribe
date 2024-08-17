@@ -3,7 +3,8 @@
     import { isAuthenticated } from "$lib/stores/auth.store";
     import { browser } from "$app/environment";
     import { page } from "$app/stores";
-    import { goto, onNavigate } from "$app/navigation";
+    import { goto } from "$app/navigation";
+	import { Toaster } from "svelte-french-toast";
 
     $: if (browser && $page.url.pathname == '/' && $isAuthenticated)
         goto('/games')
@@ -16,6 +17,7 @@
 <div class="container">
     <Header />
     <slot></slot>
+    <Toaster position='bottom-right' toastOptions={{duration: 2000}} />
 </div>
 
 <style>
