@@ -30,7 +30,7 @@ jobs:
         run: npm run build
 
       - name: Check for symlinks
-        run: find ./build -type l
+        run: find ./build -type f -links +1
         
       - name: Upload artifact
         id: upload-artifact
