@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Download files from the current repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Node.js
         uses: actions/setup-node@v4
@@ -21,29 +21,17 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Log files
-        run: ls
-
-      - name: Archive artifact
-        shell: sh
-        run: |
-          echo ::group::Archive artifact
-          tar \
-            --dereference --hard-dereference \
-            --directory "$INPUT_PATH" \
-            -cvf "$RUNNER_TEMP/artifact.tar" \
-            --exclude=.git \
-            --exclude=.github \
-            .
-          echo ::endgroup::
-        env:
-          INPUT_PATH: build
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact
         id: upload-artifact
         uses: actions/upload-artifact@v4
         with:
           name: scorescribe
-          path: ${{ runner.temp }}/artifact.tar
-          retention-days: 1
+          path: 'build'
           if-no-files-found: error
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
