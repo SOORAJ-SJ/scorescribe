@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    --base-font-size: 16px;
+    --base-font-family: "Roboto", sans-serif;
+    --base-font-weight: 400;
+    --primary-color: #FCFB00;
+    --secondary-color: black;
+    --placeholder-color: #D9D9D9;
+    --size-xxs: 0.5rem;
+    --size-xs: 0.75rem;
+    --size-sm: 1rem;
+    --size-md: 1.5rem;
+    --size-lg: 2rem;
+    --size-xl: 3rem;
+    --size-xxl: 4rem;
+}
+body {
+    font-family: var(--base-font-family);
+    font-size: var(--base-font-size);
+    font-weight: var(--base-font-weight);
+    margin: 0;
+    padding: 0;
+}
+.stroked-text {
+    color: var(--primary-color);
+    -webkit-text-stroke: 1px var(--secondary-color);
+}
