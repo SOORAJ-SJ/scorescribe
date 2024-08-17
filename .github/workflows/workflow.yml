@@ -33,9 +33,7 @@ jobs:
         id: upload-artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          name: 'github-pages'
-          path: 'build'
-          if-no-files-found: error
+          path: './build'
 
   deploy:
       needs: build
