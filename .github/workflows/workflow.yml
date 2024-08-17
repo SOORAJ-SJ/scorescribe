@@ -46,6 +46,9 @@ jobs:
           name: 'github-pages'
           path: '.'
 
+      - name: Log files
+        run: ls -a
+
       - name: Unzip artifact
         run: unzip ./github-pages.zip -d ./build
 
