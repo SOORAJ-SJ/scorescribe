@@ -3,9 +3,17 @@ on:
   push: 
     branches: ['main']
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs: 
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps: 
       - name: Download files from the current repository
         uses: actions/checkout@v4
@@ -28,10 +36,9 @@ jobs:
         id: upload-artifact
         uses: actions/upload-artifact@v4
         with:
-          name: scorescribe
           path: 'build'
           if-no-files-found: error
-          
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
