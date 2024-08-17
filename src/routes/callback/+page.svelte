@@ -8,15 +8,15 @@
     const idToken = urlSearchParams.get('id_token');
     const idTokenClaims = parseJWT(idToken || '');
     if (!(idTokenClaims.nonce == decodeURIComponent(window.sessionStorage.getItem('nonce') || '')))
-        window.location.href = '/';
+        window.location.href = '/scorescribe';
     if (!accessToken || !idToken)
-        window.location.href = '/';
+        window.location.href = '/scorescribe';
     else {
         sessionStorage.setItem('access_token', accessToken);
         sessionStorage.setItem('id_token', idToken);
         sessionStorage.setItem('user', JSON.stringify(idTokenClaims));
         changeAuthState(true);
-        window.location.href = '/games'
+        window.location.href = '/scorescribe/games'
     }
 </script>
 

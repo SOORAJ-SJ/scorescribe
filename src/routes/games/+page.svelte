@@ -5,7 +5,6 @@
 	import { onMount } from "svelte";
 	import toast from "svelte-french-toast";
     import Loader from "$lib/components/Loader.svelte";
-	import { getToken } from "$lib/common/functions";
 
     /**
      * @typedef properties
@@ -29,9 +28,6 @@
      * 
      */
 
-    /**
-     * @type {boolean}
-     */
     let isLoading = true;
     /**
      * @type {spreadsheet}
@@ -57,7 +53,9 @@
             <ul class='games-list-container'>
                 {#each spreadsheets.sheets as sheet}  
                     <li>
-                        <GameCard url="https://images.unsplash.com/photo-1617783919130-c8566c8d3b7f?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" title={sheet.properties.title} />
+                        <a href={'/games/' + sheet.properties.title}>
+                            <GameCard url="https://images.unsplash.com/photo-1617783919130-c8566c8d3b7f?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" title={sheet.properties.title} />
+                        </a>
                     </li>
                 {/each }
             </ul>
@@ -76,5 +74,8 @@
     }
     .games-list-container li {
         margin-bottom: var(--size-sm);
+    }
+    .games-list-container a {
+        text-decoration: none;
     }
 </style>

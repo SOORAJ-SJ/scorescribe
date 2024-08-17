@@ -1,7 +1,47 @@
 <script>
-  import Points from '$lib/components/Points.svelte';
-  import Tile from '$lib/components/Tile.svelte';
-import Title from '$lib/components/Title.svelte';
+    import Points from '$lib/components/Points.svelte';
+    import Tile from '$lib/components/Tile.svelte';
+    import Title from '$lib/components/Title.svelte';
+    import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+    import { getSheet } from '$lib/common/data';
+    import Loader from '$lib/components/Loader.svelte';
+	import { getUser } from "$lib/common/functions";
+
+    let isLoading = true;
+    /**
+     * @type {spreadsheet}
+     */
+    let sheet;
+
+    /**
+     * @type {Array.<userScore>} scores
+     */
+    let scores = [];
+    let totalMatches = 0;
+    let winRatio = 0;
+    const user = getUser();
+    onMount(async () => {
+        sheet = await getSheet($page.params.game);
+        isLoading = false;
+        for (let [index, data] of sheet.sheets[0].data[0].rowData.entries()) {
+            data.values.forEach((value, i) => {
+                if (index == 0) {
+                    const player = {
+                        email: value.formattedValue,
+                        isMainPlayer: value.formattedValue.split('|')[1].toLowerCase() == user.email,
+                        score: 0
+                    }
+                    scores.push(player);
+                }
+                else {
+                    totalMatches += parseInt(value.formattedValue);
+                    scores[i].score += parseInt(value.formattedValue);
+                }
+            })
+        }
+        winRatio = Math.round(((scores.find(user => user.isMainPlayer)?.score || 0) / totalMatches) * 100);
+    });
 </script>
 
 <main>
@@ -9,24 +49,30 @@ import Title from '$lib/components/Title.svelte';
         <Title>Scoreboard</Title>
     </section>
     <section id="results">
-        <Points />
+        {#if isLoading}
+            <Loader />
+        {:else }
+            <Points {scores} picture={user.picture} />
+        {/if}
     </section>
-    <section id="statistics">
-        <div>
-            <Tile>
-                <div class="progress-fill"></div>
-                <div class="win-ratio">
-                    <h1>50%</h1>
-                </div>
-            </Tile>
-            <Tile>
-                <div class="match-counter">
-                    <h1 class="stroked-text">20</h1>
-                    <p>Matches played</p>
-                </div>
-            </Tile>
-        </div>
-    </section>
+    {#if !isLoading}
+        <section id="statistics">
+            <div>
+                <Tile>
+                    <div class="progress-fill" style={`width:${winRatio}%;`}></div>
+                    <div class="win-ratio">
+                        <h1>{winRatio} %</h1>
+                    </div>
+                </Tile>
+                <Tile>
+                    <div class="match-counter">
+                        <h1 class="stroked-text">{totalMatches}</h1>
+                        <p>Matches played</p>
+                    </div>
+                </Tile>
+            </div>
+        </section>
+    {/if }
 </main>
 
 <style>
@@ -62,7 +108,6 @@ import Title from '$lib/components/Title.svelte';
         top: 0;
         left: 0;
         bottom: 0;
-        width: 50%;
         background-color: rgba(252 251 0 / 30%);
         z-index: -1;
     }

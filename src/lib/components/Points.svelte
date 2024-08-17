@@ -1,14 +1,31 @@
 <script>
-  import Avatar from "./Avatar.svelte";
-  import Point from "./Point.svelte";
+    import Avatar from "./Avatar.svelte";
+    import Point from "./Point.svelte";
 
+    /**
+     * @type {Array.<userScore>} scores
+     */
+    export let scores;
+    export let picture;
+
+    const mainPlayer = scores.find(player => player.isMainPlayer);
+    const otherPlayer = scores.find(player => !player.isMainPlayer)
+
+    /**
+     * 
+     * @param {string} nameString
+     * @returns {string}
+     */
+    const getName = (nameString) => {
+        return nameString.split('|')[0];
+    }
 </script>
 
 <div class="points-card">
     <div class="player">
         <div class="points">
-            <Avatar name="John" />
-            <Point stroked={true}>20</Point>
+            <Avatar name={getName(mainPlayer?.email || 'Player 1')} url={picture} />
+            <Point stroked={true}>{mainPlayer?.score}</Point>
         </div>
     </div>
     <div class="versus">
@@ -16,8 +33,8 @@
     </div>
     <div class="opponent">
         <div class="points">
-            <Point>20</Point>
-            <Avatar name="Player" />
+            <Point>{otherPlayer?.score}</Point>
+            <Avatar name={getName(otherPlayer?.email || 'Player 2')} />
         </div>
     </div>
 </div>
