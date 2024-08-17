@@ -20,13 +20,10 @@ jobs:
 
       - name: Build project
         run: npm run build
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
+
       - name: Log files
         run: ls
-        
+
       - name: Archive artifact
         shell: sh
         run: |
