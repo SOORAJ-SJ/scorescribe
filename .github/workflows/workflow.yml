@@ -30,7 +30,14 @@ jobs:
         run: npm run build
 
       - name: Check for symlinks
-        run: find ./build -type f -links +1
+        run: |
+          echo "Logging hard links and symbolic links in the build directory..."
+          find build -type f -links +1 -exec ls -l {} \; > hard_links.log
+          find build -type l -exec ls -l {} \; > symlinks.log
+          echo "Hard links:"
+          cat hard_links.log
+          echo "Symbolic links:"
+          cat symlinks.log
         
       - name: Upload artifact
         id: upload-artifact
