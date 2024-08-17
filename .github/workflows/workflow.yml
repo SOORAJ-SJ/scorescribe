@@ -29,16 +29,6 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Check for symlinks
-        run: |
-          echo "Logging hard links and symbolic links in the build directory..."
-          find build -type f -links +1 -exec ls -l {} \; > hard_links.log
-          find build -type l -exec ls -l {} \; > symlinks.log
-          echo "Hard links:"
-          cat hard_links.log
-          echo "Symbolic links:"
-          cat symlinks.log
-        
       - name: Upload artifact
         id: upload-artifact
         uses: actions/upload-artifact@v4
@@ -56,4 +46,4 @@ jobs:
       steps:
         - name: Deploy to GitHub Pages
           id: deployment
-          uses: actions/deploy-pages@v4
+          uses: actions/deploy-pages@v1
