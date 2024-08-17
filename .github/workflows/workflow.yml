@@ -9,11 +9,8 @@ permissions:
   id-token: write
 
 jobs: 
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps: 
       - name: Download files from the current repository
         uses: actions/checkout@v4
@@ -28,30 +25,24 @@ jobs:
 
       - name: Build project
         run: npm run build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        id: upload-artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: 'github-pages'
-          path: 'build'
-          if-no-files-found: error
-
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: 'github-pages'
-          path: '.'
-
-      - name: Log files
-        run: ls -a
-
-      - name: Unzip artifact
-        run: unzip ./github-pages.zip -d ./build
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        
+  deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      environment:
+        name: github-pages
+        url: ${{ steps.deployment.outputs.page_url }}
+      steps:
+        - name: Upload artifact
+          id: upload-artifact
+          uses: actions/upload-artifact@v4
+          with:
+            name: 'github-pages'
+            path: 'build'
+            if-no-files-found: error
+  
+        - name: Deploy to GitHub Pages
+          id: deployment
+          uses: actions/deploy-pages@v4
+          with:
+            folder: 'build'
