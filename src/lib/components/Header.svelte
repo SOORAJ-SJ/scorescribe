@@ -13,7 +13,7 @@
     <div class="header-container">
         <div class="brand-logo">
             <a href="/">
-                <img src="/images/sk-logo.png" alt="logo" width="60" height="60" />
+                <img src="/scorescribe/images/sk-logo.png" alt="logo" width="60" height="60" />
             </a>
         </div>
         <div>
