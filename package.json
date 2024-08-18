@@ -30,6 +30,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"firebase": "^10.13.0",
 		"svelte-french-toast": "^1.2.0"
 	}
 }
