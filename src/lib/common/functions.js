@@ -9,11 +9,7 @@ export function randomString() {
  */
 export function parseJWT(jwt) {
     const [header, payload, sign] = jwt.split('.');
-    try {
-        return JSON.parse(atob(payload || ''));
-    } catch {
-        return { error: 'failed to parse token' }
-    }
+    return JSON.parse(atob(payload));
 }
 
 /**
