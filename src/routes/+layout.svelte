@@ -18,7 +18,6 @@
     };
 
     const app = initializeApp(firebaseConfig);
-    console.log(app);
 
     $: if (browser && $page.url.pathname == '/' && $isAuthenticated)
         goto('/games')
