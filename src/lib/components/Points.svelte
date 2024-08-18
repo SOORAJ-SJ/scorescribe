@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="versus">
-        <img src="/scorescribe/images/versus.png" alt="versus logo" width="40">
+        <img src="/images/versus.png" alt="versus logo" width="40">
     </div>
     <div class="opponent">
         <div class="points">
