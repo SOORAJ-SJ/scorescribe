@@ -22,7 +22,7 @@
             sessionStorage.setItem('id_token', idToken);
             sessionStorage.setItem('user', JSON.stringify(idTokenClaims));
             changeAuthState(true);
-            window.location.href = '/scorescribe/games'
+            window.location.href = '/games'
         }
     } catch (error) {
         console.log(error)
