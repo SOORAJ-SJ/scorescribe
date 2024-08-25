@@ -47,3 +47,19 @@
  * @property {number} score
  * @property {boolean} isMainPlayer
 */
+
+/**
+ * @typedef DriveFile
+ * @property {string} kind
+ * @property {string} mimeType
+ * @property {string} id
+ * @property {string} name
+ * 
+ */
+
+/**
+ * @typedef DriveFileList
+ * @property {string} kind
+ * @property {boolean} incompleteSearch
+ * @property {Array.<DriveFile>} files
+ */
