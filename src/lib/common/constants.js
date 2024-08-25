@@ -7,6 +7,5 @@ export const AUTH_CONFIG = {
 
 export const SHEETS_API_METADATA = {
     driveId: '119Tv4ENnbQM6uI-SQiRrdQ2HurMhmF8V',
-    spreadsheetId: '1eIXlLcFQC1oHqmbjFvJHMULfSbWOQASMkuSAIa1QynM',
     sheetsAPIUrl: 'https://sheets.googleapis.com/v4/spreadsheets'
 }
