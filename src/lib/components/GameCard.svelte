@@ -5,9 +5,6 @@
 </script>
 
 <div class="game-card">
-    <div class="game-card-image">
-        <img src={url} alt={alt}>
-    </div>
     <div class="game-title">
         <h1 class="stroked-text">{title}</h1>
     </div>
@@ -22,14 +19,6 @@
         border-radius: 1rem;
         height: 5rem;
         overflow: hidden;
-    }
-    .game-card .game-card-image {
-        width: 60%;
-    }
-    .game-card .game-card-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
     }
     .game-card .game-title {
         width: 40%;
