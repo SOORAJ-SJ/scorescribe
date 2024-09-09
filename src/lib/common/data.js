@@ -17,7 +17,6 @@ async function _validateFetchResponse(fetchResponse) {
 
 export async function _getSpreadsheetId() {
     const spreadsheetId = sessionStorage.getItem('spreadsheetId');
-    console.log(spreadsheetId, 'sid')
     if (spreadsheetId) return spreadsheetId;
     const response = await fetch(
         'https://www.googleapis.com/drive/v3/files',

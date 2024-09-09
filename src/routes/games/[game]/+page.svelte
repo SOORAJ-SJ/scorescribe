@@ -8,6 +8,7 @@ import Points from '$lib/components/Points.svelte';
     import Loader from '$lib/components/Loader.svelte';
 	import { getUser } from "$lib/common/functions";
 
+    let game = $page.params.game;
     let isLoading = true;
     /**
      * @type {spreadsheet}
@@ -21,7 +22,7 @@ import Points from '$lib/components/Points.svelte';
     let winRatio = 0;
     const user = getUser();
     onMount(async () => {
-        sheet = await getSheet($page.params.game);
+        sheet = await getSheet(game);
         isLoading = false;
         for (let [index, data] of sheet.sheets[0].data[0].rowData.entries()) {
             data.values.forEach((value, i) => {
@@ -45,7 +46,7 @@ import Points from '$lib/components/Points.svelte';
 
 <main>
     <section>
-        <Title>Scoreboard</Title>
+        <Title>{game}</Title>
     </section>
     <section id="results">
         {#if isLoading}
@@ -58,9 +59,11 @@ import Points from '$lib/components/Points.svelte';
         <section id="statistics">
             <div>
                 <Tile>
-                    <div class="progress-fill" style={`width:${winRatio}%;`}></div>
+                    <div class="progress-fill" style={`width:${winRatio}%;`}>
+                        <div class="animated-fill"></div>
+                    </div>
                     <div class="win-ratio">
-                        <h1>{winRatio} %</h1>
+                        <h1>{winRatio}%</h1>
                     </div>
                 </Tile>
                 <Tile>
@@ -107,7 +110,19 @@ import Points from '$lib/components/Points.svelte';
         top: 0;
         left: 0;
         bottom: 0;
-        background-color: rgba(252 251 0 / 30%);
         z-index: -1;
+    }
+    .animated-fill {
+        height: 100%;
+        background-color: rgba(252 251 0 / 30%);
+        animation: fill 0.5s cubic-bezier(0.65, 0.28, 0.5, 0.9);
+    }
+    @keyframes fill {
+        0% {
+            width: 0%;
+        }
+        100% {
+            width: 100%;
+        }
     }
 </style>
